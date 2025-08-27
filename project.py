@@ -48,6 +48,8 @@ def main():
     
     while running:
         
+        player_choice = None
+        
         # checking for user input (event loop)
         for event in pygame.event.get():
             # what happens when user clicks CLOSE button
@@ -58,25 +60,11 @@ def main():
                 
                 # keyboard input
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_w or event.key == pygame.K_UP:
-                        print("Player chose UP")
-                    elif event.key == pygame.K_a or event.key == pygame.K_LEFT:
-                        print("Player chose LEFT")
-                    elif event.key == pygame.K_s or event.key == pygame.K_DOWN:
-                        print("Player chose DOWN")
-                    elif event.key == pygame.K_d or event.key == pygame.K_RIGHT:
-                        print("Player chose RIGHT")
+                    player_choice = get_choice_from_key(event.key)
                         
                 # mouse input
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if top.collidepoint(event.pos):
-                        print("Player chose UP")
-                    elif left.collidepoint(event.pos):
-                        print("Player chose LEFT")
-                    elif bottom.collidepoint(event.pos):
-                        print("Player chose DOWN")
-                    elif right.collidepoint(event.pos):
-                        print("Player chose RIGHT")
+                    player_choice = get_choice_from_pos(event.pos, rects)
                     
                     
         # game logic - states
@@ -92,14 +80,34 @@ def main():
             state = 'PLAYER TURN'
             
             # reset the player's progress
-        
-        
-        
+            player_turn_index = 0
+            
+        elif state == 'PLAYER TURN':
+            
+            # if the player has made a choice we check with the func
+            if player_choice is not None:
+                is_correct = check_player_input(sequence, player_choice, player_turn_index)
+                
+                if is_correct:
+                    player_turn_index += 1
+                    if player_turn_index == len(sequence):
+                        score += 1
+                        state = 'COMPUTER_TURN'
+                        
+                else:   # wrong answer
+                    running = False
+                    
 
         # --- DRAWING CODE ---
         
         # starting with total black
         screen.fill((0, 0, 0))
+        
+        # dark colours at start
+        pygame.draw.rect(screen, RED_OFF, top, border_radius=30)
+        pygame.draw.rect(screen, GREEN_OFF, left, border_radius=30)
+        pygame.draw.rect(screen, BLUE_OFF, bottom, border_radius=30)
+        pygame.draw.rect(screen, YELLOW_OFF, right, border_radius=30)
         
         # at the end we need updating he screen with all the drawing in this loop iteration
         pygame.display.flip()
@@ -176,6 +184,14 @@ def get_choice_from_key(key):
         return 'down'
     elif key == pygame.K_d or key == pygame.K_RIGHT:
         return 'right'
+
+def check_player_input(sequence, player_choice, turn_index):
+    
+    # returns right or wrong
+    if turn_index < len(sequence):
+        return[turn_index] == player_choice
+    return False
+
 
         
 if __name__ == "__main__":
