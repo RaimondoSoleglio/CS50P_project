@@ -66,13 +66,15 @@ def main():
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     player_choice = get_choice_from_pos(event.pos, rects)
                     
-                    
+        
         # game logic - states
         if state == 'COMPUTER TURN':
             
+            print("--- Entering COMPUTER_TURN ---")
+            
             # computer adds a colour to the sequence        
             colour_seq(sequence)
-        
+            print(sequence)
             # computer shows the sequence
             show_seq(sequence, screen)
             
@@ -86,13 +88,20 @@ def main():
             
             # if the player has made a choice we check with the func
             if player_choice is not None:
+
+                print("--- 1. Player made a choice this frame.")
+                
                 is_correct = check_player_input(sequence, player_choice, player_turn_index)
+                
+                print(f"--- 2. 'is_correct' is: {is_correct}")
                 
                 if is_correct:
                     player_turn_index += 1
+                    
                     if player_turn_index == len(sequence):
                         score += 1
-                        state = 'COMPUTER_TURN'
+                        pygame.time.wait(500)
+                        state = 'COMPUTER TURN'
                         
                 else:   # wrong answer
                     running = False
@@ -107,7 +116,7 @@ def main():
         pygame.draw.rect(screen, RED_OFF, top, border_radius=30)
         pygame.draw.rect(screen, GREEN_OFF, left, border_radius=30)
         pygame.draw.rect(screen, BLUE_OFF, bottom, border_radius=30)
-        pygame.draw.rect(screen, YELLOW_OFF, right, border_radius=30)
+        pygame.draw.rect(screen, YELLOW_OFF, right, border_radius=30)     
         
         # at the end we need updating he screen with all the drawing in this loop iteration
         pygame.display.flip()
@@ -124,9 +133,8 @@ def colour_seq(sequence):
     rnd_colour = random.choice(COLOURS)
     
     # append the colour to the sequence list
-    sequence.append(rnd_colour)
-    
-    
+    sequence.append(rnd_colour)    
+
     
 def show_seq(sequence, screen):
     
@@ -189,7 +197,7 @@ def check_player_input(sequence, player_choice, turn_index):
     
     # returns right or wrong
     if turn_index < len(sequence):
-        return[turn_index] == player_choice
+        return sequence[turn_index] == player_choice
     return False
 
 
