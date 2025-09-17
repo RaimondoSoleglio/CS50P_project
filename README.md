@@ -1,5 +1,3 @@
-# Untitled
-
 # CS50P Final Project - Simon Game
 
 ### by Roberto Sommella
@@ -8,7 +6,7 @@ A documentation of my final project development process for Harvard's CS50P Intr
 
 ### VIDEO LINK:
 
-### Description:
+#### Description:
 
 The Simon Game is a memory skill game where players must repeat a sequence of colours/sounds that gets progressively longer and more complex. The game starts with a intro title and a **START** button. There a small I in the top left corner to read instructions and credits. 
 
