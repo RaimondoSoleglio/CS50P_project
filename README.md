@@ -4,7 +4,7 @@
 
 A documentation of my final project development process for Harvard's CS50P Introduction to Programming with Python course.
 
-### VIDEO LINK:
+### VIDEO LINK: https://youtu.be/_JjgYpZAmy0
 
 #### Description:
 
