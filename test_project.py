@@ -1,5 +1,5 @@
 import pygame
-from project import check_player_input, get_choice_from_key, colour_seq, COLOURS
+from main import check_player_input, get_choice_from_key, colour_seq, COLOURS
 
 def test_check_player_input():
     sequence = ['up', 'down', 'left']
