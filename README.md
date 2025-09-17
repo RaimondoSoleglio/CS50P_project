@@ -44,7 +44,7 @@ project/
 ├── requirements.txt
 ├── project.py       # Main code
 ├── sounds/          # Game audio files
-├── font.ttf         # Game audio files
+├── font.ttf         # Public Pixel font
 └── test_project.py  # Unit tests
 
 ```
