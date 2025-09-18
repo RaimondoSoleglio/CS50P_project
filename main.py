@@ -242,10 +242,6 @@ async def main():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         player_choice = get_choice_from_pos(event.pos, rects)
 
-                    # show the colour
-                    if player_choice is not None:
-                        await flash_button(player_choice, screen, sounds)
-
 
             # game logic - states
             if play_state == 'COMPUTER TURN':
@@ -272,7 +268,7 @@ async def main():
 
                 # if the player has made a choice we check with the func
                 if player_choice is not None:
-
+                    await flash_button(player_choice, screen, sounds)
                     is_correct = check_player_input(sequence, player_choice, player_turn_index)
 
                     if is_correct:
